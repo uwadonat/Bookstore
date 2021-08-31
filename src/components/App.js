@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import Books from './appComponents/Books';
 import store from '../redux/configureStore';
-import Categories from './appComponents/Categiries';
+import Categories from './appComponents/Categories';
 import './App.css';
 import Header from './appComponents/Header';
 import { Switch } from 'react-router-dom';
