@@ -2,11 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.css';
 import './BookItem.css';
+import { removeBook } from '../../../../redux/books/books';
 
 function BookItem(props) {
   const {
     cat, title, author, prog,
   } = props;
+
+  const dispatch = useDispatch();
+
+  function handleClick(e) {
+      const payload = Number(e.target.dataset.bookid);
+      dispatch(removeBook(payload));
+  }
+  
   return (
     <div className="row  book-item">
       <div className="col">
