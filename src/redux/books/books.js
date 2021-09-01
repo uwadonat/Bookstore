@@ -8,8 +8,12 @@ const defaultState = [];
 export default function books(state = defaultState, action) {
   switch (action.type) {
     case LOAD_BOOKS:
-      return action.payload.map((bookObject) => ({...bookObject, author: 'Suzanne Collins', progress: 74 }));
-    case ADD_BOOKS:
+      return action.payload.map((bookObject) => ({
+        ...bookObject,
+        author: 'Suzanne Collins',
+        progress: 74,
+      }));
+    case ADD_BOOK:
       return state.concat({
         id: action.payload.item_id,
         title: action.payload.title,
@@ -24,7 +28,7 @@ export default function books(state = defaultState, action) {
   }
 }
 
-function loadbooks(payload) {
+function loadBooks(payload) {
   return {
     type: LOAD_BOOKS,
     payload,
@@ -48,39 +52,53 @@ function removeBook(payload) {
 export function addBookAPI(payload) {
   const bookDetails = { ...payload, item_id: Date.now() };
   return async function addBookThunk(dispatch) {
-    fetch(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${APP_ID}/books`, {
-      method: 'POST',
-      body: JSON.stringify(bookDetails),
-      headers: {
-        'content-type': 'application/json',
+    fetch(
+      `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${APP_ID}/books`,
+      {
+        method: 'POST',
+        body: JSON.stringify(bookDetails),
+        headers: {
+          'content-type': 'application/json',
+        },
       },
-    }).then((response) => response.status === 201 && dispatch(addBook(bookDetails)));
+    ).then(
+      (response) => response.status === 201 && dispatch(addBook(bookDetails)),
+    );
   };
 }
 
 export function loadBooksAPI() {
   function arrayFormat(respObj) {
     const values = Object.values(respObj).map((item) => item[0]);
-    return Object.keys(respObj).map((item, i) => ({ id: Number(item), ...values[i] }));
+    return Object.keys(respObj).map((item, i) => ({
+      id: Number(item),
+      ...values[i],
+    }));
   }
 
-export async function loadBooksThunk(dispatch) {
-  fetch(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${APP_ID}/books`)
-  .then((response) => response.json())
-  .then((json) => dispatch(loadBooks(arrayFormat(json))));
-};
+  return async function loadBooksThunk(dispatch) {
+    fetch(
+      `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${APP_ID}/books`,
+    )
+      .then((response) => response.json())
+      .then((json) => dispatch(loadBooks(arrayFormat(json))));
+  };
 }
 
 export function removeBookAPI(id) {
   const success = 'The book was deleted successfully!';
   return async function removeBookThunk(dispatch) {
-    fetch(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${APP_ID}/books/${id.toString()}`, {
-      method: 'DELETE',
-      body: JSON.stringify({ item_id: id.toString() }),
-      headers: {
-        'content-type': 'application/json',
+    fetch(
+      `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${APP_ID}/books/${id.toString()}`,
+      {
+        method: 'DELETE',
+        body: JSON.stringify({ item_id: id.toString() }),
+        headers: {
+          'content-type': 'application/json',
+        },
       },
-    }).then((response) => response.text())
+    )
+      .then((response) => response.text())
       .then((text) => text === success && dispatch(removeBook(id)));
   };
 }
