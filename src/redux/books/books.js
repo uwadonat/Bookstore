@@ -45,3 +45,15 @@ function removeBook(payload) {
   };
 }
 
+export function addBookAPI(payload) {
+  const bookDetails = { ...payload, item_id: Date.now() };
+  return async function addBookThunk(dispatch) {
+    fetch(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${APP_ID}/books`, {
+      method: 'POST',
+      body: JSON.stringify(bookDetails),
+      headers: {
+        'content-type': 'application/json',
+      },
+    }).then((response) => response.status === 201 && dispatch(addBook(bookDetails)));
+  };
+}
