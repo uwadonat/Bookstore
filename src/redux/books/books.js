@@ -57,3 +57,30 @@ export function addBookAPI(payload) {
     }).then((response) => response.status === 201 && dispatch(addBook(bookDetails)));
   };
 }
+
+export function loadBooksAPI() {
+  function arrayFormat(respObj) {
+    const values = Object.values(respObj).map((item) => item[0]);
+    return Object.keys(respObj).map((item, i) => ({ id: Number(item), ...values[i] }));
+  }
+
+export async function loadBooksThunk(dispatch) {
+  fetch(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${APP_ID}/books`)
+  .then((response) => response.json())
+  .then((json) => dispatch(loadBooks(arrayFormat(json))));
+};
+}
+
+export function removeBookAPI(id) {
+  const success = 'The book was deleted successfully!';
+  return async function removeBookThunk(dispatch) {
+    fetch(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${APP_ID}/books/${id.toString()}`, {
+      method: 'DELETE',
+      body: JSON.stringify({ item_id: id.toString() }),
+      headers: {
+        'content-type': 'application/json',
+      },
+    }).then((response) => response.text())
+      .then((text) => text === success && dispatch(removeBook(id)));
+  };
+}
