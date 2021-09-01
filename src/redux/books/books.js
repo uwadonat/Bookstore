@@ -1,5 +1,5 @@
 const ADD_BOOK = 'bookstore/books/ADD_BOOK';
-const REMOVE_BOOK = 'bookstore/books/REMOVE_BOOK;
+const REMOVE_BOOK = 'bookstore/books/REMOVE_BOOK';
 
 const defaultState = [];
 
@@ -14,7 +14,7 @@ export default function books(state = defaultState, action) {
         progress: 0,
       });
     case REMOVE_BOOK:
-      return state.filter((book) => book.id!== action.payload)
+      return state.filter((book) => book.id !== action.payload);
     default:
       return state;
   }
