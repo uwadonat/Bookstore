@@ -79,7 +79,7 @@ export function loadBooksAPI() {
   }
 
   return async function loadBooksThunk(dispatch) {
-    fetch(
+    await fetch(
       `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${APP_ID}/books`,
     )
       .then((response) => response.json())

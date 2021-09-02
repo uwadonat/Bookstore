@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addBookAPI } from '../../../redux/books/books';
+import BookForm from './BookForm';
 
 function AddBookForm() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function AddBookForm() {
         </select>
         <button type="submit" className="add-btn">ADD BOOK</button>
       </form>
+      <BookForm />
     </div>
   );
 }
