@@ -53,7 +53,7 @@ function removeBook(payload) {
   };
 }
 
-export function addBookAPI(payload) {
+export const addBookAPI = (payload) => {
   const bookDetails = { ...payload, item_id: Date.now() };
   return async function addBookThunk(dispatch) {
     fetch(
@@ -69,7 +69,7 @@ export function addBookAPI(payload) {
       (response) => response.status === 201 && dispatch(addBook(bookDetails)),
     );
   };
-}
+};
 
 export const loadBooksAPI = () => {
   function arrayFormat(respObj) {
@@ -90,7 +90,7 @@ export const loadBooksAPI = () => {
   return loadBooksThunk;
 };
 
-export function removeBookAPI(id) {
+export const removeBookAPI = (id) => {
   const success = 'The book was deleted successfully!';
   return async function removeBookThunk(dispatch) {
     fetch(
@@ -106,4 +106,4 @@ export function removeBookAPI(id) {
       .then((response) => response.text())
       .then((text) => text === success && dispatch(removeBook(id)));
   };
-}
+};
