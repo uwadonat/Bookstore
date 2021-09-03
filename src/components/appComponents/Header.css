@@ -29,13 +29,12 @@
   line-height: normal;
   letter-spacing: 1.9px;
   color: #a4a4a4;
-  text-decoration:none;
+  text-decoration: none;
 }
 
 .nav-link.active {
   color: #121212;
 }
-
 
 .user {
   float: right;
@@ -44,7 +43,7 @@
   position: absolute;
   right: 0;
   width: 2.813rem;
-  height:2.813rem;
+  height: 2.813rem;
   margin: 0 0 0 41.5rem;
   padding: 0.875rem;
   border: solid 1 px #e8e8e8;
