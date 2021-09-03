@@ -14,7 +14,7 @@
   font-style: normal;
   letter-spacing: normal;
   color: #0290ff;
-  text-decolation: none;
+  text-decoration: none;
 }
 
 .nav-link {
@@ -38,7 +38,6 @@
 
 .user {
   float: right;
-  margin-top: -40px;
   box-sizing: border-box;
   position: absolute;
   right: 0;
@@ -46,7 +45,7 @@
   height: 2.813rem;
   margin: 0 0 0 41.5rem;
   padding: 0.875rem;
-  border: solid 1 px #e8e8e8;
+  border: solid 1px #e8e8e8;
   border-radius: 50%;
   color: #0290ff;
 }
