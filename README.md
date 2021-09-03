@@ -1,6 +1,13 @@
 # BookStore
 This is a React app that stores books. User can add and remove books. 
 
+![Screenshot](https://github.com/uwadonat/bookstore/blob/styling/images/Screenshoot.png)
+
+Additional description of the project and its features.
+
+## 🔴  Live Demo
+
+[bookstore](https://pedantic-roentgen-d6f242.netlify.app/)
 ## Built With
 
 - HTML
