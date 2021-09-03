@@ -69,7 +69,7 @@ export function addBookAPI(payload) {
   };
 }
 
-export function loadBooksAPI() {
+export const loadBooksAPI = () => {
   function arrayFormat(respObj) {
     const values = Object.values(respObj).map((item) => item[0]);
     return Object.keys(respObj).map((item, i) => ({
@@ -78,14 +78,15 @@ export function loadBooksAPI() {
     }));
   }
 
-  return async function loadBooksThunk(dispatch) {
+  const loadBooksThunk = async (dispatch) => {
     await fetch(
       `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${APP_ID}/books`,
     )
       .then((response) => response.json())
       .then((json) => dispatch(loadBooks(arrayFormat(json))));
   };
-}
+  return loadBooksThunk;
+};
 
 export function removeBookAPI(id) {
   const success = 'The book was deleted successfully!';
