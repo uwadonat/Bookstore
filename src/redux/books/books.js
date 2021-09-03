@@ -5,6 +5,8 @@ const APP_ID = 'W2TAgTVlPqLEGcqZHoYR';
 
 const defaultState = [
   {
+    title: 'The Hunger game',
+    category: 'action',
     author: 'Suzanne Collins',
     progress: 74,
   }];
